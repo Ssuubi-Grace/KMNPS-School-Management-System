@@ -1,0 +1,30 @@
+export interface Pupil {
+    fullName: string;
+    dob: string;
+    gender: string;
+    nationality: string;
+    tribe: string;
+    religion: string;
+    disability: string;
+    homeLanguage: string;
+    parentName: string;
+    relationship: string;
+    contact: string;
+    altContact: string;
+    email: string;
+    occupation: string;
+    address: string;
+    location: string;
+    admissionNo: string;
+    classGrade: string;
+    stream: string;
+    enrollmentDate: string;
+    previousSchool: string;
+    specialNeeds: string;
+    bloodGroup: string;
+    allergies: string;
+    medicalConditions: string;
+    immunizationStatus: string;
+    emergencyPerson: string;
+    emergencyContact: string;
+}
