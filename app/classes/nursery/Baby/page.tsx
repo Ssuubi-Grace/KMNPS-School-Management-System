@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 export default function ClassStudentsPage() {
     const [students, setStudents] = useState([]);
     const params = useParams();
-    const className = decodeURIComponent(params.className);
+    const className = decodeURIComponent((params.className as string) || '');
 
     useEffect(() => {
         const data = localStorage.getItem('pupilData');
