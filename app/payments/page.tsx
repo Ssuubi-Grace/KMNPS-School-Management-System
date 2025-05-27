@@ -5,6 +5,8 @@ import { supabase } from '@/lib/supabaseClient';
 const currentYear = new Date().getFullYear();
 const terms = ['Term I', 'Term II', 'Term III'];
 
+
+
 export default function PaymentsPage() {
     const [students, setStudents] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState('');
@@ -13,6 +15,8 @@ export default function PaymentsPage() {
     const [term, setTerm] = useState(terms[0]);
     const [year, setYear] = useState(currentYear);
     const [payments, setPayments] = useState([]);
+    //receipt
+    const [selectedReceipt, setSelectedReceipt] = useState(null);
     const [requirements, setRequirements] = useState({
         broom: false,
         ream: false,
@@ -196,6 +200,7 @@ export default function PaymentsPage() {
                     <td>{Object.keys(p.requirements).filter((key) => p.requirements[key]).join(', ')}</td>
                     <td>{p.term}</td>
                     <td>{p.year}</td>
+
                     <td>
                         <button
                             className="text-blue-600 underline"
@@ -210,11 +215,64 @@ export default function PaymentsPage() {
                         >
                             Edit
                         </button>
+
+                        <button
+                            className="text-green-600 underline"
+                            onClick={() => setSelectedReceipt(p)}
+                        >
+                            Receipt
+                        </button>
                     </td>
                 </tr>
             ));
     };
 
+
+    //receipt
+    const ReceiptModal = ({ payment, onClose }) => {
+        if (!payment) return null;
+    
+        return (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                <div className="bg-white p-6 rounded shadow-lg max-w-md w-full relative">
+                    <button
+                        onClick={onClose}
+                        className="absolute top-2 right-2 text-gray-600 hover:text-red-500"
+                    >
+                        ✖
+                    </button>
+                    <img
+                        src="/kutya_Mukama_Logo.png" 
+                        alt="School Logo"
+                        className="mx-auto h-32  w-36 mb-2"
+                    />
+                    <h1 className="text-2xl font-bold">Kutya Mukama Nursery and Primary School</h1>
+                    <p className="text-sm text-gray-600">Work hard for Sucess</p>
+                    <h2 className="text-xl font-semibold mb-4">Payment Receipt</h2>
+                    <p><strong>Date:</strong> {new Date(payment.date).toLocaleString()}</p>
+                    <p><strong>Name:</strong> {payment.fullName}</p>
+                    <p><strong>Admission No:</strong> {payment.admissionNo}</p>
+                    <p><strong>Class:</strong> {payment.classGrade}</p>
+                    <p><strong>Term:</strong> {payment.term} {payment.year}</p>
+                    <p><strong>Total Fee:</strong> UGX {payment.totalFee}</p>
+                    <p><strong>Amount Paid:</strong> UGX {payment.amountPaid}</p>
+                    <p><strong>Balance:</strong> UGX {payment.balance}</p>
+                    <p><strong>Requirements:</strong> {Object.keys(payment.requirements).filter(k => payment.requirements[k]).join(', ') || 'None'}</p>
+                    
+                    <div className="mt-4 flex justify-end">
+                        <button
+                            onClick={() => window.print()}
+                            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                        >
+                            Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+    
+    
     const hasMadePayment = matchedStudent &&
         payments.some((p) => p.admissionNo === matchedStudent.admissionNo);
 
@@ -368,6 +426,15 @@ export default function PaymentsPage() {
                     </table>
                 </div>
             )}
+
+            {selectedReceipt && (
+                <ReceiptModal
+                    payment={selectedReceipt}
+                    onClose={() => setSelectedReceipt(null)}
+            />
+)}
+
+
         </div>
     );
 }
