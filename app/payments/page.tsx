@@ -247,7 +247,7 @@ export default function PaymentsPage() {
                         className="mx-auto h-32  w-36 mb-2"
                     />
                     <h1 className="text-2xl font-bold">Kutya Mukama Nursery and Primary School</h1>
-                    <p className="text-sm text-gray-600">Work hard for Sucess</p>
+                    <p className="text-sm text-gray-600 italic mt-2 mb-4">"Work hard for Sucess"</p>
                     <h2 className="text-xl font-semibold mb-4">Payment Receipt</h2>
                     <p><strong>Date:</strong> {new Date(payment.date).toLocaleString()}</p>
                     <p><strong>Name:</strong> {payment.fullName}</p>
@@ -258,7 +258,7 @@ export default function PaymentsPage() {
                     <p><strong>Amount Paid:</strong> UGX {payment.amountPaid}</p>
                     <p><strong>Balance:</strong> UGX {payment.balance}</p>
                     <p><strong>Requirements:</strong> {Object.keys(payment.requirements).filter(k => payment.requirements[k]).join(', ') || 'None'}</p>
-                    
+                    <p className="italic text-sm font-bold  mt-4 mb-4">"Thank you for supporting the education of our children!"</p>
                     <div className="mt-4 flex justify-end">
                         <button
                             onClick={() => window.print()}
