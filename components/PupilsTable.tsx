@@ -35,7 +35,7 @@ export default function PupilsTable({ pupils, selectedClass }: PupilsTableProps)
 
     return (
         <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">📘 Pupils in {selectedClass}</h2>
+            {/* <h2 className="text-xl font-bold mb-4">📘 Pupils in {selectedClass}</h2> */}
 
             <input
                 type="text"
@@ -60,7 +60,7 @@ export default function PupilsTable({ pupils, selectedClass }: PupilsTableProps)
                         <thead className="bg-gray-100">
                             <tr>
                                 {[ /* same headers as before */
-                                    'Full Name', 'Date of Birth', 'Gender', 'Nationality', 'Tribe', 'Religion', 'Disability', 'Home Language',
+                                    'id', 'Created_at', 'Full Name', 'Date of Birth', 'Gender', 'Nationality', 'Tribe', 'Religion', 'Disability', 'Home Language',
                                     'Parent Name', 'Relationship', 'Contact', 'Alt Contact', 'Email', 'Occupation', 'Address', 'Location',
                                     'Admission No', 'Class Grade', 'Stream', 'Enrollment Date', 'Previous School', 'Special Needs', 'Blood Group',
                                     'Allergies', 'Medical Conditions', 'Immunization Status', 'Emergency Person', 'Emergency Contact'
