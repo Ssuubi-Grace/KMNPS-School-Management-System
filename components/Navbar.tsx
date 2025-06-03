@@ -120,7 +120,8 @@ export default function Navbar() {
                 <button onClick={toggleMenu} className="md:hidden">
                     {menuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
-            </div>
+            </div> 
+    
 
             {/* Mobile Dropdown Menu */}
             {menuOpen && (
