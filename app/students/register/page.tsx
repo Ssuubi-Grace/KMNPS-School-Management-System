@@ -178,13 +178,17 @@ export default function PupilRegistrationForm() {
                     value={formData.fullName}
                     onChange={handleChange}
                 />
-                <input
-                    type="date"
-                    name="dob"
-                    className="input"
-                    value={formData.dob}
-                    onChange={handleChange}
-                />
+                <div>
+                    <label htmlFor="dob" className="block">Date of Birth</label>
+                    <input
+                        type="date"
+                        id="dob"
+                        name="dob"
+                        className="input"
+                        value={formData.dob}
+                        onChange={handleChange}
+                    />
+                </div>
                 <select
                     name="gender"
                     className="input"
@@ -352,13 +356,17 @@ export default function PupilRegistrationForm() {
                     value={formData.stream}
                     onChange={handleChange}
                 />
-                <input
-                    type="date"
-                    name="enrollmentDate"
-                    className="input"
-                    value={formData.enrollmentDate}
-                    onChange={handleChange}
-                />
+                <div>
+                    <label htmlFor="enrollmentDate" className="block">Enrollment Date</label>
+                    <input
+                        type="date"
+                        id="enrollmentDate"
+                        name="enrollmentDate"
+                        className="input"
+                        value={formData.enrollmentDate}
+                        onChange={handleChange}
+                    />
+                </div>
                 <input
                     type="text"
                     name="previousSchool"

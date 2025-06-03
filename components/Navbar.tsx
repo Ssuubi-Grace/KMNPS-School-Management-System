@@ -9,9 +9,11 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [studentsOpen, setStudentsOpen] = useState(false);
     const [paymentsOpen, setPaymentsOpen] = useState(false);
+    const [visitorsOpen, setvisitorsOpen] = useState(false);
 
     const studentsRef = useRef<HTMLDivElement>(null);
     const paymentsRef = useRef<HTMLDivElement>(null);
+    const visitorsRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -29,6 +31,12 @@ export default function Navbar() {
                 !paymentsRef.current.contains(event.target as Node)
             ) {
                 setPaymentsOpen(false);
+            }
+            if (
+                visitorsRef.current &&
+                !visitorsRef.current.contains(event.target as Node)
+            ) {
+                setvisitorsOpen(false);
             }
         };
 
@@ -84,6 +92,23 @@ export default function Navbar() {
                                 <Link href="/payments" className="block px-4 py-2 hover:bg-gray-100">Make Payment</Link>
                                 <hr />
                                 <Link href="/Allpayments" className="block px-4 py-2 hover:bg-gray-100">View All Payments</Link>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Visitors Dropdown */}
+                    <div className="relative" ref={visitorsRef}>
+                        <button
+                            onClick={() => setvisitorsOpen(!visitorsOpen)}
+                            className="hover:text-yellow-300 flex items-center gap-1"
+                        >
+                            Visitors
+                        </button>
+                        {visitorsOpen && (
+                            <div className="absolute bg-white text-black rounded-md shadow-md mt-2 w-52 z-20">
+                                <Link href="/visitors" className="block px-4 py-2 hover:bg-gray-100">Add Visitor</Link>
+                                <hr />
+                                <Link href="/Allvisitors" className="block px-4 py-2 hover:bg-gray-100">View All Visitors</Link>
                             </div>
                         )}
                     </div>
