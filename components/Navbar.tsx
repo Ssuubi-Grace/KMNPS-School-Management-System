@@ -9,11 +9,13 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [studentsOpen, setStudentsOpen] = useState(false);
     const [paymentsOpen, setPaymentsOpen] = useState(false);
-    const [visitorsOpen, setvisitorsOpen] = useState(false);
+    const [visitorsOpen, setVisitorsOpen] = useState(false);
+    const [staffOpen, setStaffOpen] = useState(false);
 
     const studentsRef = useRef<HTMLDivElement>(null);
     const paymentsRef = useRef<HTMLDivElement>(null);
     const visitorsRef = useRef<HTMLDivElement>(null);
+    const staffRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -36,7 +38,13 @@ export default function Navbar() {
                 visitorsRef.current &&
                 !visitorsRef.current.contains(event.target as Node)
             ) {
-                setvisitorsOpen(false);
+                setVisitorsOpen(false);
+            }
+            if (
+                staffRef.current &&
+                !staffRef.current.contains(event.target as Node)
+            ) {
+                setStaffOpen(false);
             }
         };
 
@@ -75,6 +83,23 @@ export default function Navbar() {
                         )}
                     </div>
 
+                    {/* Staff Dropdown */}
+                    <div className="relative" ref={staffRef}>
+                        <button
+                            onClick={() => setStaffOpen(!staffOpen)}
+                            className="hover:text-yellow-300 flex items-center gap-1"
+                        >
+                            Staff
+                        </button>
+                        {staffOpen && (
+                            <div className="absolute bg-white text-black rounded-md shadow-md mt-2 w-52 z-20">
+                                <Link href="/staff" className="block px-4 py-2 hover:bg-gray-100">Add New Staff</Link>
+                                <hr />
+                                <Link href="/Allstaff" className="block px-4 py-2 hover:bg-gray-100">View All Staff</Link>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Classes */}
                     <Link href="/classes/nursery" className="hover:text-yellow-300">Nursery</Link>
                     <Link href="/classes/primary" className="hover:text-yellow-300">Primary</Link>
@@ -99,7 +124,7 @@ export default function Navbar() {
                     {/* Visitors Dropdown */}
                     <div className="relative" ref={visitorsRef}>
                         <button
-                            onClick={() => setvisitorsOpen(!visitorsOpen)}
+                            onClick={() => setVisitorsOpen(!visitorsOpen)}
                             className="hover:text-yellow-300 flex items-center gap-1"
                         >
                             Visitors
@@ -120,8 +145,8 @@ export default function Navbar() {
                 <button onClick={toggleMenu} className="md:hidden">
                     {menuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
-            </div> 
-    
+            </div>
+
 
             {/* Mobile Dropdown Menu */}
             {menuOpen && (
@@ -136,6 +161,13 @@ export default function Navbar() {
                         <Link href="/students/list" className="block px-4 py-2 bg-blue-100 text-black">View All Pupils</Link>
                     </div>
 
+                    {/* Mobile Staff */}
+                    <div className="border rounded-md overflow-hidden">
+                        <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Staff</div>
+                        <Link href="/staff" className="block px-4 py-2 bg-blue-100 text-black">Add New Staff</Link>
+                        <Link href="/Allstaff" className="block px-4 py-2 bg-blue-100 text-black">View All Staff</Link>
+                    </div>
+
                     <Link href="/classes/nursery" className="block hover:text-yellow-300">Nursery</Link>
                     <Link href="/classes/primary" className="block hover:text-yellow-300">Primary</Link>
 
@@ -144,6 +176,13 @@ export default function Navbar() {
                         <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Payments</div>
                         <Link href="/payments" className="block px-4 py-2 bg-blue-100 text-black">Make Payment</Link>
                         <Link href="/Allpayments" className="block px-4 py-2 bg-blue-100 text-black">View All Payments</Link>
+                    </div>
+
+                    {/* Mobile Visitors */}
+                    <div className="border rounded-md overflow-hidden">
+                        <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Visitors</div>
+                        <Link href="/payments" className="block px-4 py-2 bg-blue-100 text-black">Add Visitor</Link>
+                        <Link href="/Allpayments" className="block px-4 py-2 bg-blue-100 text-black">View All Visitors</Link>
                     </div>
 
                     <Link href="/reports" className="block hover:text-yellow-300">Reports</Link>
