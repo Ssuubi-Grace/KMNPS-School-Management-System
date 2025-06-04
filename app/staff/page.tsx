@@ -73,14 +73,52 @@ export default function AddStaffPage() {
         other_responsibility: "",
     });
 
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const { error } = await supabase.from("staff").insert([form]);
+
+        // 1. Determine prefix from department
+        const department = form.department;
+        let prefix = "SP";
+        if (department === "Administration") prefix = "AD";
+        else if (department === "Teaching") prefix = "TE";
+
+        // 2. Fetch existing staff IDs in that department to generate next number
+        const { data: existingStaff, error: fetchError } = await supabase
+            .from("staff")
+            .select("staff_id")
+            .ilike("staff_id", `${prefix}%`);
+
+        if (fetchError) {
+            alert("Failed to fetch existing staff. Please try again.");
+            console.error(fetchError);
+            return;
+        }
+
+        // 3. Extract numeric parts and compute the next number
+        const existingNumbers = existingStaff
+            .map((s) => parseInt(s.staff_id?.substring(2) || "0"))
+            .filter((n) => !isNaN(n));
+        const nextNumber = (existingNumbers.length > 0 ? Math.max(...existingNumbers) : 0) + 1;
+
+        // 4. Build the new staff_id like "AD004"
+        const staff_id = prefix + String(nextNumber).padStart(3, "0");
+
+        // 5. Insert new staff with the generated staff_id
+        const { error } = await supabase.from("staff").insert([
+            {
+                ...form,
+                staff_id, // include generated staff ID here
+            },
+        ]);
+
         if (error) {
             alert(`Error adding staff: ${error.message}`);
             console.error(error);
         } else {
-            alert("Staff added successfully!");
+            alert(`Staff added successfully! ID assigned: ${staff_id}`);
+
+            // 6. Reset form
             setForm({
                 name: "",
                 address: "",
@@ -95,6 +133,31 @@ export default function AddStaffPage() {
             });
         }
     };
+
+
+
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     const { error } = await supabase.from("staff").insert([form]);
+    //     if (error) {
+    //         alert(`Error adding staff: ${error.message}`);
+    //         console.error(error);
+    //     } else {
+    //         alert("Staff added successfully!");
+    //         setForm({
+    //             name: "",
+    //             address: "",
+    //             email: "",
+    //             phone: "",
+    //             role: "",
+    //             department: "",
+    //             dob: "",
+    //             class_to_teach: "",
+    //             subjects: "",
+    //             other_responsibility: "",
+    //         });
+    //     }
+    // };
 
     return (
         <div className="p-4 space-y-6 max-w-4xl mx-auto">
