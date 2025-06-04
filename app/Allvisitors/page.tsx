@@ -75,17 +75,6 @@ const fetchVisitors = async (
 };
 
 
-// const fetchVisitors = async (setVisitors: (v: Visitor[]) => void) => {
-//     const { data, error } = await supabase
-//         .from("visitors")
-//         .select("*")
-//         .order("visit_date", { ascending: false });
-
-//     console.log("Supabase visitors:", data);        // 👀 debug
-//     if (error) console.error("Supabase error:", error);
-//     if (data) setVisitors(data as Visitor[]);
-// };
-
 export default function VisitorsListPage() {
     const [visitors, setVisitors] = useState<Visitor[]>([]);
     const [filterTerm, setFilterTerm] = useState("");

@@ -10,18 +10,15 @@ const terms = ['Term I', 'Term II', 'Term III'];
 
 
 export default function PaymentsPage() {
-    // const [students, setStudents] = useState([]);
     const [students, setStudents] = useState<Pupil[]>([]);
     const [selectedStudent, setSelectedStudent] = useState('');
     const [amountPaid, setAmountPaid] = useState('');
     const [totalFee, setTotalFee] = useState('');
     const [term, setTerm] = useState(terms[0]);
     const [year, setYear] = useState(currentYear);
-    //const [payments, setPayments] = useState([]);
     const [payments, setPayments] = useState<Payment[]>([]);
 
     //receipt
-    //const [selectedReceipt, setSelectedReceipt] = useState(null);
     const [selectedReceipt, setSelectedReceipt] = useState<Payment | null>(null);
 
     type Requirements = {
@@ -54,9 +51,6 @@ export default function PaymentsPage() {
     }
 
 
-
-
-    //const [editPaymentId, setEditPaymentId] = useState(null);
     const [editPaymentId, setEditPaymentId] = useState<number | null>(null);
     const [filterTerm, setFilterTerm] = useState('');
     const [filterYear, setFilterYear] = useState('');
@@ -121,10 +115,6 @@ export default function PaymentsPage() {
             classGrade: matchedStudent.classGrade,
             amountPaid: parseInt(amountPaid),
             totalFee: parseInt(totalFee),
-            // balance: balance, //have added it to reflect in the db
-
-            //balance: getBalance(),
-            //balance: parseInt(totalFee || '0') - (getTotalPaid() + parseInt(amountPaid || '0')),
             balance: Number(totalFee) - (getTotalPaid() + Number(amountPaid)),
 
 
@@ -142,7 +132,6 @@ export default function PaymentsPage() {
 
             if (error) {
                 console.error('Supabase Update Error:', error.message);
-                //alert('Error updating payment');
                 //alert(Error saving payment: ${error.message}); //edited the code to log the error message
                 alert(`Error saving payment: ${error.message}`);
 
@@ -154,15 +143,9 @@ export default function PaymentsPage() {
             const { error } = await supabase.from('payments').insert([paymentData]);
             if (error) {
                 console.error('Supabase Insert Error:', error.message);
-                //alert(Error saving payment: ${error.message});
                 alert(`Error saving payment: ${error.message}`);
                 return;
             }
-            // const { error } = await supabase.from('payments').insert([paymentData]);
-            // if (error) {
-            //     alert('Error saving payment');
-            //     return;
-            // }
 
             alert('Payment recorded successfully!');
         }
@@ -209,12 +192,6 @@ export default function PaymentsPage() {
                 );
             })
 
-            // .filter((p) =>
-            //     p.admissionNo === matchedStudent?.admissionNo &&
-            //     (filterTerm ? p.term === filterTerm : true) &&
-            //     (filterYear ? p.year.toString() === filterYear : true)
-            // )
-
             .map((p, index) => (
                 <tr key={p.id || index}>
                     <td>{new Date(p.date).toLocaleString()}</td>
@@ -224,11 +201,6 @@ export default function PaymentsPage() {
 
                     <td>{p.amountPaid}</td>
                     <td>{calculateBalanceForPayment(p)}</td>
-
-                    {/* <td>{p.totalFee - payments
-                    .filter((x) => x.admissionNo === p.admissionNo && x.term === p.term && x.year === p.year && x.date <= p.date)
-                    .reduce((sum, x) => sum + x.amountPaid, 0)}</td> */}
-
 
                     <td>{Object.keys(p.requirements).filter((key) => p.requirements[key]).join(', ')}</td>
                     <td>{p.term}</td>
@@ -241,9 +213,7 @@ export default function PaymentsPage() {
                                 setEditPaymentId(p.id);
                                 setAmountPaid(p.amountPaid.toString());
                                 setTotalFee(p.totalFee.toString());
-                                //setRequirements(p.requirements);
                                 setRequirements(toRequirements(p.requirements));
-
                                 setTerm(p.term);
                                 setYear(p.year);
                             }}
@@ -264,7 +234,6 @@ export default function PaymentsPage() {
 
 
     //receipt
-    //const ReceiptModal = ({ payment, onClose }) => {
 
     type ReceiptModalProps = {
         payment: Payment;
@@ -326,61 +295,6 @@ export default function PaymentsPage() {
             </div>
         );
     };
-
-
-    // type ReceiptModalProps = {
-    //     payment: Payment;
-    //     onClose: () => void;
-    // };
-
-    // const ReceiptModal = ({ payment, onClose }: ReceiptModalProps) => {
-
-    //     if (!payment) return null;
-    //     return (
-    //         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 print:static print:bg-white print:opacity-100">
-    //             <div
-    //                 id="receipt"
-    //                 className="bg-white p-6 rounded shadow-lg max-w-md w-full relative print:shadow-none print:max-w-full print:w-full print:p-4"
-    //             >
-    //                 <button
-    //                     onClick={onClose}
-    //                     className="absolute top-2 right-2 text-gray-600 hover:text-red-500 print:hidden"
-    //                 >
-    //                     ✖
-    //                 </button>
-    //                 <img
-    //                     src="/kutya_Mukama_Logo.png"
-    //                     alt="School Logo"
-    //                     className="mx-auto h-32 w-36 mb-2"
-    //                 />
-    //                 <h1 className="text-2xl font-bold text-center">Kutya Mukama Nursery and Primary School</h1>
-    //                 <p className="text-sm text-gray-600 italic mt-2 mb-4 text-center">"Work hard for Sucess"</p>
-    //                 <h2 className="text-xl font-semibold mb-4 text-center">Payment Receipt</h2>
-    //                 <p><strong>Date:</strong> {new Date(payment.date).toLocaleString()}</p>
-    //                 <p><strong>Name:</strong> {payment.fullName}</p>
-    //                 <p><strong>Admission No:</strong> {payment.admissionNo}</p>
-    //                 <p><strong>Class:</strong> {payment.classGrade}</p>
-    //                 <p><strong>Term:</strong> {payment.term} {payment.year}</p>
-    //                 <p><strong>Total Fee:</strong> UGX {payment.totalFee}</p>
-    //                 <p><strong>Amount Paid:</strong> UGX {payment.amountPaid}</p>
-    //                 <p><strong>Balance:</strong> UGX {payment.balance}</p>
-    //                 <p><strong>Requirements:</strong> {Object.keys(payment.requirements).filter(k => payment.requirements[k]).join(', ') || 'None'}</p>
-    //                 <p className="italic text-sm font-bold mt-4 mb-4 text-center">
-    //                     "Thank you for supporting the education of our children!"
-    //                 </p>
-    //                 <div className="mt-4 flex justify-end print:hidden">
-    //                     <button
-    //                         onClick={() => window.print()}
-    //                         className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-    //                     >
-    //                         Print
-    //                     </button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     );
-    // };
-
 
     const hasMadePayment = matchedStudent &&
         payments.some((p) => p.admissionNo === matchedStudent.admissionNo);
@@ -456,13 +370,6 @@ export default function PaymentsPage() {
                 ))}
             </select>
 
-            {/* <input
-                type="number"
-                placeholder="Year"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-                className="input w-full mb-2 p-2 border rounded"
-            /> */}
             <input
                 type="number"
                 placeholder="Year"
@@ -470,7 +377,6 @@ export default function PaymentsPage() {
                 onChange={(e) => setYear(Number(e.target.value))}
                 className="input w-full mb-2 p-2 border rounded"
             />
-
 
 
             <h2 className="font-semibold">Requirements</h2>
@@ -482,12 +388,6 @@ export default function PaymentsPage() {
                             //checked={requirements[item]}
                             checked={requirements[item as keyof Requirements]}
 
-                            // onChange={() =>
-                            //     setRequirements((prev) => ({
-                            //         ...prev,
-                            //         [item]: !prev[item],
-                            //     }))
-                            // }
                             onChange={() =>
                                 setRequirements((prev) => ({
                                     ...prev,
@@ -565,7 +465,6 @@ export default function PaymentsPage() {
         </div>
     );
 }
-
 
 
 

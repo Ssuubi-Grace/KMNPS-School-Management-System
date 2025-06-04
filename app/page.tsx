@@ -1,7 +1,3 @@
-// // app/page.tsx
-// export default function Page() {
-//   return <h1>Hello World</h1>;
-// }
 
 import Image from 'next/image'
 import Link from 'next/link';

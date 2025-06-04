@@ -53,7 +53,7 @@ export default function Navbar() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-    //nav className = "bg-blue-700 text-white px-6 py-4 flex justify-between items-center
+
     return (
         <nav className="bg-blue-700 text-white shadow-md relative">
             <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -99,6 +99,10 @@ export default function Navbar() {
                             </div>
                         )}
                     </div>
+
+                    {/* Attendance */}
+                    <Link href="/attendance" className="hover:text-yellow-300">Attendance</Link>
+
 
                     {/* Classes */}
                     <Link href="/classes/nursery" className="hover:text-yellow-300">Nursery</Link>
@@ -168,6 +172,9 @@ export default function Navbar() {
                         <Link href="/Allstaff" className="block px-4 py-2 bg-blue-100 text-black">View All Staff</Link>
                     </div>
 
+                    <Link href="/attendance" className="block hover:text-yellow-300">Attendance</Link>
+
+
                     <Link href="/classes/nursery" className="block hover:text-yellow-300">Nursery</Link>
                     <Link href="/classes/primary" className="block hover:text-yellow-300">Primary</Link>
 
@@ -191,6 +198,7 @@ export default function Navbar() {
         </nav>
     );
 }
+
 
 
 

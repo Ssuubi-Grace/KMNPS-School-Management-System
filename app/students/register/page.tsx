@@ -1,10 +1,8 @@
-//Supabase Code
 'use client';
 type Pupil = {
     admissionNo: string;
     fullName: string;
     classGrade: string;
-    // Add other properties as needed
 };
 
 import { useState } from 'react';
@@ -47,7 +45,7 @@ const initialFormData = {
 export default function PupilRegistrationForm() {
     const [formData, setFormData] = useState(initialFormData);
 
-    // Update form data when inputs change
+    // Updating form data when inputs change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
@@ -59,7 +57,7 @@ export default function PupilRegistrationForm() {
         e.preventDefault();
 
         try {
-            // 1. Fetch all pupils in the same class
+            // 1. Fetching all pupils in the same class
             const { data: existingPupils, error } = await supabase
                 .from('pupils')
                 .select('classGrade')
@@ -90,7 +88,7 @@ export default function PupilRegistrationForm() {
 
             const newPupil = { ...formData, admissionNo: generatedAdmissionNo };
 
-            // 2. Insert pupil into Supabase
+            // 2. Inserting pupil into Supabase
             const { data, error: insertError } = await supabase
                 .from('pupils')
                 .insert([newPupil]);
@@ -104,65 +102,6 @@ export default function PupilRegistrationForm() {
             alert('There was an error saving the data.');
         }
     };
-
-
-    //     const handleSubmit = (e: React.FormEvent) => {
-    //         e.preventDefault();
-
-    //         try {
-    //             const existingData = localStorage.getItem('pupilData');
-    //             const parsedData = Array.isArray(JSON.parse(existingData || '[]'))
-    //                 ? (JSON.parse(existingData || '[]') as Pupil[])
-    //                 : [];
-
-    //             const currentYear = new Date().getFullYear(); // Get current year (e.g., 2025)
-
-    //             // Filter students by class to get the count for auto-generation
-    //             const sameClassStudents = parsedData.filter(
-    //                 (student) => student.classGrade === formData.classGrade
-    //             );
-
-    //             // Determine class prefix based on class selection
-    //             const classMap: { [key: string]: string } = {
-    //                 'Baby Class': 'B',
-    //                 'Middle Class': 'M',
-    //                 'Top Class': 'T',
-    //                 'Primary One': 'P1',
-    //                 'Primary Two': 'P2',
-    //                 'Primary Three': 'P3',
-    //                 'Primary Four': 'P4',
-    //                 'Primary Five': 'P5',
-    //                 'Primary Six': 'P6',
-    //                 'Primary Seven': 'P7',
-    //             };
-
-    //             const cleanedClass = formData.classGrade.trim();
-    //             const classPrefix = classMap[cleanedClass] || 'UNK';
-
-    //             // Generate the unique admission number by incrementing last 3 digits
-    //             const nextNumber = String(sameClassStudents.length + 1).padStart(3, '0');
-
-    //             // Combine year (last two digits), class prefix, and the next number
-    //             const generatedAdmissionNo = `${String(currentYear).slice(-2)}${classPrefix}${nextNumber}`;
-
-    //             // Create the new student object with generated admission number
-    //             const newStudent = { ...formData, admissionNo: generatedAdmissionNo };
-
-    //             // Save the updated student list to localStorage
-    //             const updatedData = [...parsedData, newStudent];
-    //             localStorage.setItem('pupilData', JSON.stringify(updatedData));
-
-    //             // Reset the form data
-    //             setFormData(initialFormData);
-
-    //             // Alert the user with the generated ID
-    //             alert(`Pupil Registered Successfully with ID ${generatedAdmissionNo}`);
-    //         } catch (error) {
-    //             console.error('Failed to save pupil data:', error);
-    //             alert('There was an error saving the data.');
-    //         }
-    //     };
-    // ``
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl mx-auto p-4">
@@ -321,14 +260,7 @@ export default function PupilRegistrationForm() {
                     value={formData.admissionNo}
                     onChange={handleChange}
                 />
-                {/* <input
-                    type="text"
-                    name="classGrade"
-                    placeholder="Class/Grade"
-                    className="input"
-                    value={formData.classGrade}
-                    onChange={handleChange}
-                /> */}
+
                 <select
                     name="classGrade"
                     className="input"

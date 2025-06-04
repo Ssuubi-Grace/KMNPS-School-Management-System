@@ -8,7 +8,7 @@ export interface Payment {
     year: number;
     totalFee: number;
     amountPaid: number;
-    balance: number; // ✅ I added this line
+    balance: number;
 
     requirements: {
         [key: string]: boolean;

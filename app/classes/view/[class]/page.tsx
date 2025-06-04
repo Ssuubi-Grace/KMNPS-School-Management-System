@@ -50,8 +50,6 @@ export default function ViewClassPage() {
 }
 
 
-
-
 // 'use client';
 
 // import { useEffect, useState } from 'react';
