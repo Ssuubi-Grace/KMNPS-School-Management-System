@@ -11,11 +11,13 @@ export default function Navbar() {
     const [paymentsOpen, setPaymentsOpen] = useState(false);
     const [visitorsOpen, setVisitorsOpen] = useState(false);
     const [staffOpen, setStaffOpen] = useState(false);
+    const [salaryOpen, setSalaryOpen] = useState(false);
 
     const studentsRef = useRef<HTMLDivElement>(null);
     const paymentsRef = useRef<HTMLDivElement>(null);
     const visitorsRef = useRef<HTMLDivElement>(null);
     const staffRef = useRef<HTMLDivElement>(null);
+    const salaryRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -45,6 +47,13 @@ export default function Navbar() {
                 !staffRef.current.contains(event.target as Node)
             ) {
                 setStaffOpen(false);
+            }
+
+            if (
+                salaryRef.current &&
+                !salaryRef.current.contains(event.target as Node)
+            ) {
+                setSalaryOpen(false);
             }
         };
 
@@ -125,6 +134,24 @@ export default function Navbar() {
                         )}
                     </div>
 
+
+                    {/* Salaries Dropdown */}
+                    <div className="relative" ref={salaryRef}>
+                        <button
+                            onClick={() => setSalaryOpen(!salaryOpen)}
+                            className="hover:text-yellow-300 flex items-center gap-1"
+                        >
+                            Salaries
+                        </button>
+                        {salaryOpen && (
+                            <div className="absolute bg-white text-black rounded-md shadow-md mt-2 w-52 z-20">
+                                <Link href="/salary/paySalary" className="block px-4 py-2 hover:bg-gray-100">Pay Salary</Link>
+                                <hr />
+                                <Link href="/salary/salaryRecords" className="block px-4 py-2 hover:bg-gray-100">View Salary Records</Link>
+                            </div>
+                        )}
+                    </div>
+
                     {/* Visitors Dropdown */}
                     <div className="relative" ref={visitorsRef}>
                         <button
@@ -183,6 +210,13 @@ export default function Navbar() {
                         <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Payments</div>
                         <Link href="/payments" className="block px-4 py-2 bg-blue-100 text-black">Make Payment</Link>
                         <Link href="/Allpayments" className="block px-4 py-2 bg-blue-100 text-black">View All Payments</Link>
+                    </div>
+
+                    {/* Mobile Salaries */}
+                    <div className="border rounded-md overflow-hidden">
+                        <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Salaries</div>
+                        <Link href="/salary/paySalary" className="block px-4 py-2 bg-blue-100 text-black">Pay Salary</Link>
+                        <Link href="/salary/salaryRecords" className="block px-4 py-2 bg-blue-100 text-black">View Salary Records</Link>
                     </div>
 
                     {/* Mobile Visitors */}

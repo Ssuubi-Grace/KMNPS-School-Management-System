@@ -134,31 +134,6 @@ export default function AddStaffPage() {
         }
     };
 
-
-
-    // const handleSubmit = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     const { error } = await supabase.from("staff").insert([form]);
-    //     if (error) {
-    //         alert(`Error adding staff: ${error.message}`);
-    //         console.error(error);
-    //     } else {
-    //         alert("Staff added successfully!");
-    //         setForm({
-    //             name: "",
-    //             address: "",
-    //             email: "",
-    //             phone: "",
-    //             role: "",
-    //             department: "",
-    //             dob: "",
-    //             class_to_teach: "",
-    //             subjects: "",
-    //             other_responsibility: "",
-    //         });
-    //     }
-    // };
-
     return (
         <div className="p-4 space-y-6 max-w-4xl mx-auto">
             <h1 className="text-3xl font-bold text-center">Add Staff Member</h1>
