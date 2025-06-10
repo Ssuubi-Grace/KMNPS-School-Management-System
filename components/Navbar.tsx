@@ -64,8 +64,10 @@ export default function Navbar() {
     }, []);
 
     return (
-        <nav className="bg-blue-700 text-white shadow-md relative">
-            <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        // <nav className="bg-blue-700 text-white shadow-md relative">
+        //     <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <nav className="bg-blue-700 text-white shadow-md fixed top-0 w-full z-50 h-16 flex items-center ">
+            <div className="max-w-7xl mx-auto px-6 py-0 flex justify-between items-center w-full"> {/* Changed py-4 to py-0 */}
                 <Link href="/" className="text-xl font-bold tracking-wide">
                     🎓 School Manager
                 </Link>
@@ -130,6 +132,9 @@ export default function Navbar() {
                                 <Link href="/payments" className="block px-4 py-2 hover:bg-gray-100">Make Payment</Link>
                                 <hr />
                                 <Link href="/Allpayments" className="block px-4 py-2 hover:bg-gray-100">View All Payments</Link>
+                                <hr />
+                                <Link href="/Allpayments/LatestPaymentsSummary" className="block px-4 py-2 hover:bg-gray-100">Payments Summary</Link>
+
                             </div>
                         )}
                     </div>
@@ -148,6 +153,8 @@ export default function Navbar() {
                                 <Link href="/salary/paySalary" className="block px-4 py-2 hover:bg-gray-100">Pay Salary</Link>
                                 <hr />
                                 <Link href="/salary/salaryRecords" className="block px-4 py-2 hover:bg-gray-100">View Salary Records</Link>
+                                <hr />
+                                <Link href="/salary/salaryRecords/SalaryRecordsSummary" className="block px-4 py-2 hover:bg-gray-100"> Salary Records Summary</Link>
                             </div>
                         )}
                     </div>
@@ -210,6 +217,8 @@ export default function Navbar() {
                         <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Payments</div>
                         <Link href="/payments" className="block px-4 py-2 bg-blue-100 text-black">Make Payment</Link>
                         <Link href="/Allpayments" className="block px-4 py-2 bg-blue-100 text-black">View All Payments</Link>
+                        <Link href="/Allpayments/LatestPaymentsSummary" className="block px-4 py-2 bg-blue-100 text-black">Payments Summary</Link>
+
                     </div>
 
                     {/* Mobile Salaries */}
@@ -217,6 +226,8 @@ export default function Navbar() {
                         <div className="bg-blue-800 px-4 py-2 text-white font-semibold">Salaries</div>
                         <Link href="/salary/paySalary" className="block px-4 py-2 bg-blue-100 text-black">Pay Salary</Link>
                         <Link href="/salary/salaryRecords" className="block px-4 py-2 bg-blue-100 text-black">View Salary Records</Link>
+                        <Link href="/salary/salaryRecords/SalaryRecordsSummary" className="block px-4 py-2 bg-blue-100 text-black"> Salary Records Summary</Link>
+
                     </div>
 
                     {/* Mobile Visitors */}

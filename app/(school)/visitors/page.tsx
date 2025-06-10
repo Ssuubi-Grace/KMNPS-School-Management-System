@@ -39,7 +39,7 @@ const terms = ["Term I", "Term II", "Term III"];
 export default function VisitorsPage() {
   const [form, setForm] = useState({
     name: "",
-    adress: "",
+    address: "",
     person_to_see: "",
     purpose: "",
     visit_date: "",
@@ -60,7 +60,7 @@ export default function VisitorsPage() {
       alert("Visitor added successfully!");
       setForm({
         name: "",
-        adress: "",
+        address: "",
         person_to_see: "",
         purpose: "",
         visit_date: "",
@@ -79,7 +79,7 @@ export default function VisitorsPage() {
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <Input label="Visitor Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-        <Input label="Address" value={form.adress} onChange={(e) => setForm({ ...form, adress: e.target.value })} />
+        <Input label="Address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
         <Input label="Person to See" value={form.person_to_see} onChange={(e) => setForm({ ...form, person_to_see: e.target.value })} />
         <Input label="Purpose of Visit" value={form.purpose} onChange={(e) => setForm({ ...form, purpose: e.target.value })} />
         <Input type="date" label="Date of Visit" value={form.visit_date} onChange={(e) => setForm({ ...form, visit_date: e.target.value })} />

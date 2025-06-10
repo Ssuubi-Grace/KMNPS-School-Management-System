@@ -1,26 +1,53 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import Navbar from '@/components/Navbar'
-
-export const metadata: Metadata = {
-  title: 'School Manager',
-  description: 'Manage pupils, fees, and classes',
-}
+// app/layout.tsx
+import './globals.css'; // Your global styles
+import Navbar from '../components/Navbar'; // Import your top Navbar component
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      <body className="bg-gray-100">
-        <Navbar />
-        <main className="p-4">{children}</main>
+      <body>
+        <div className="flex flex-col min-h-screen"> {/* Stacks elements vertically */}
+          <Navbar /> {/* Your top horizontal navbar goes here */}
+          <div className="flex flex-1"> {/* This div takes remaining height and lays out children horizontally */}
+            {children} {/* This is where your app/(school)/layout.tsx (SchoolLayout) will be rendered */}
+          </div>
+        </div>
       </body>
     </html>
-  )
+  );
 }
+
+
+
+
+// // app/layout.tsx
+// import './globals.css'
+// import type { Metadata } from 'next'
+// import Navbar from '@/components/Navbar'
+
+// export const metadata: Metadata = {
+//   title: 'School Manager',
+//   description: 'Manage pupils, fees, and classes',
+// }
+
+// export default function RootLayout({
+//   children,
+// }: {
+//   children: React.ReactNode
+// }) {
+//   return (
+//     <html lang="en">
+//       <body className="bg-gray-100">
+//         <Navbar />
+//         <main className="p-4">{children}</main>
+//       </body>
+//     </html>
+//   )
+// }
 
 
 
